@@ -1,7 +1,4 @@
 version: '3'
-networks:
-  op-net:
-    driver: bridge
 
 services:
   op-db:
@@ -22,7 +19,7 @@ services:
     expose:
       - 5432
     networks:
-      - op-net
+      - dokploy-network
   op-kv:
     image: redis:7.2.5-alpine
     restart: always
@@ -35,14 +32,14 @@ services:
     expose:
       - 6379
     networks:
-      - op-net
+      - dokploy-network
   op-geo:
     image: observabilitystack/geoip-api:latest
     restart: always
     expose:
       - 8080
     networks:
-      - op-net
+      - dokploy-network
   op-ch:
     image: clickhouse/clickhouse-server:24.3.2-alpine
     restart: always
@@ -68,7 +65,7 @@ services:
       - 9000
       - 9009
     networks:
-      - op-net
+      - dokploy-network
   op-api:
     image: lindesvard/openpanel-api:latest
     restart: always
@@ -100,8 +97,7 @@ services:
       - .env
     expose:
       - 3000
-    networks:
-      - op-net
+
   op-dashboard:
     image: lindesvard/openpanel-dashboard:latest
     restart: always
@@ -111,8 +107,7 @@ services:
       - .env
     expose:
       - 3000
-    networks:
-      - op-net
+
   op-worker:
     image: lindesvard/openpanel-worker:latest
     restart: always
@@ -125,8 +120,7 @@ services:
       replicas: 4
     expose:
       - 3000
-    networks:
-      - op-net
+
 volumes:
   op-db-data:
     driver: local
