@@ -120,6 +120,9 @@ services:
       replicas: 4
     expose:
       - 3000
+    labels:
+      - "traefik.http.routers.infra-openpanel-uttntd-61-web.middlewares=redirect-to-https@file,worker-basic-auth@file"
+      - "traefik.http.routers.infra-openpanel-uttntd-61-websecure.middlewares=worker-basic-auth@file"
 
 volumes:
   op-db-data:
