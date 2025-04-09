@@ -97,6 +97,9 @@ services:
       - .env
     expose:
       - 3000
+    labels:
+      - "traefik.http.middlewares.infra-openpanel-uttntd-59-web-strip.stripPrefix.prefixes=/api"
+      - "traefik.http.middlewares.infra-openpanel-uttntd-59-websecure-strip.stripPrefix.prefixes=/api"
 
   op-dashboard:
     image: lindesvard/openpanel-dashboard:latest
