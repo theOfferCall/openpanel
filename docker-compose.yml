@@ -76,6 +76,8 @@ services:
       - op-geo
     env_file:
       - .env
+    expose:
+      - 3000
   op-dashboard:
     image: lindesvard/openpanel-dashboard:latest
     restart: always
@@ -83,6 +85,8 @@ services:
       - op-api
     env_file:
       - .env
+    expose:
+      - 3000
   op-worker:
     image: lindesvard/openpanel-worker:latest
     restart: always
@@ -93,6 +97,8 @@ services:
     deploy:
       mode: replicated
       replicas: 4
+    expose:
+      - 3000
 volumes:
   op-db-data:
     driver: local
