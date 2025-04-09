@@ -66,6 +66,17 @@ services:
       - 9009
     networks:
       - dokploy-network
+    command: >
+      sh -c "
+        /entrypoint.sh &
+        until clickhouse-client --query 'SELECT 1' >/dev/null 2>&1; do
+          echo 'Waiting for ClickHouse to start...'
+          sleep 1
+        done
+        echo 'Running init-db.sh...'
+        bash /docker-entrypoint-initdb.d/init-db.sh
+        wait
+      "
   op-api:
     image: lindesvard/openpanel-api:latest
     restart: always
