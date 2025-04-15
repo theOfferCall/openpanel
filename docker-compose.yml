@@ -111,20 +111,14 @@ services:
     networks:
       - op-network
     labels:
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-web.rule=Host(`panel.theoffercall.com`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-web.entrypoints=web"
-      - "traefik.http.services.infra-openpanel-jbubyl-8-web.loadbalancer.server.port=3000"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-web.service=infra-openpanel-jbubyl-8-web"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-web.middlewares=infra-openpanel-jbubyl-8-web-strip@docker,redirect-to-https@file"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-websecure.rule=Host(`panel.theoffercall.com`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-websecure.entrypoints=websecure"
-      - "traefik.http.services.infra-openpanel-jbubyl-8-websecure.loadbalancer.server.port=3000"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-websecure.service=infra-openpanel-jbubyl-8-websecure"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-websecure.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.infra-openpanel-jbubyl-8-websecure.middlewares=infra-openpanel-jbubyl-8-websecure-strip@docker"
-      - "traefik.http.middlewares.infra-openpanel-jbubyl-8-web-strip.stripPrefix.prefixes=/api"
-      - "traefik.http.middlewares.infra-openpanel-jbubyl-8-websecure-strip.stripPrefix.prefixes=/api"
-      - "traefik.enable=true"
+      - traefik.http.routers.openpanel-theoffercall.rule=Host(`panel.theoffercall.com`) && PathPrefix(`/api`)
+      - traefik.http.routers.openpanel-theoffercall.entrypoints=web
+      - traefik.http.routers.openpanel-theoffercall.middlewares=openpanel-strip@docker,redirect-to-https@file
+      - traefik.http.routers.openpanel-theoffercall.service=openpanel-service
+      - traefik.http.services.openpanel-service.loadbalancer.server.port=3000
+      - traefik.http.middlewares.openpanel-strip.stripPrefix.prefixes=/api
+      - traefik.docker.network=dokploy-network
+      - traefik.enable=true
 
   op-dashboard:
     image: lindesvard/openpanel-dashboard:latest
