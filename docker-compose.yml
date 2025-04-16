@@ -117,12 +117,6 @@ services:
       - traefik.http.routers.infra-openpanel-jbubyl-8-web.middlewares=infra-openpanel-jbubyl-8-strip@docker,redirect-to-https@file
       - traefik.http.services.infra-openpanel-jbubyl-8-web.loadbalancer.server.port=3000
       - traefik.http.routers.infra-openpanel-jbubyl-8-web.service=infra-openpanel-jbubyl-8-web
-      - traefik.http.routers.infra-openpanel-jbubyl-8-websecure.rule=Host(`panel.theoffercall.com`) && PathPrefix(`/api`)
-      - traefik.http.routers.infra-openpanel-jbubyl-8-websecure.entrypoints=websecure
-      - traefik.http.routers.infra-openpanel-jbubyl-8-websecure.tls.certresolver=letsencrypt
-      - traefik.http.routers.infra-openpanel-jbubyl-8-websecure.middlewares=infra-openpanel-jbubyl-8-strip@docker
-      - traefik.http.services.infra-openpanel-jbubyl-8-websecure.loadbalancer.server.port=3000
-      - traefik.http.routers.infra-openpanel-jbubyl-8-websecure.service=infra-openpanel-jbubyl-8-websecure
       - traefik.http.middlewares.infra-openpanel-jbubyl-8-strip.stripPrefix.prefixes=/api
       - traefik.enable=true
 
