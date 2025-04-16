@@ -19,7 +19,7 @@ services:
     expose:
       - 5432
     networks:
-      - op-network
+      - dokploy-network
   op-kv:
     image: redis:7.2.5-alpine
     restart: always
@@ -32,14 +32,14 @@ services:
     expose:
       - 6379
     networks:
-      - op-network
+      - dokploy-network
   op-geo:
     image: observabilitystack/geoip-api:latest
     restart: always
     expose:
       - 8080
     networks:
-      - op-network
+      - dokploy-network
   op-ch:
     image: clickhouse/clickhouse-server:24.3.2-alpine
     restart: always
@@ -65,7 +65,7 @@ services:
       - 9000
       - 9009
     networks:
-      - op-network
+      - dokploy-network
     command: >
       sh -c "
         /entrypoint.sh &
@@ -109,7 +109,7 @@ services:
     expose:
       - 3000
     networks:
-      - op-network
+      - dokploy-network
     labels:
       - traefik.docker.network=dokploy-network
       - traefik.http.routers.infra-openpanel-jbubyl-8-web.rule=Host(`panel.theoffercall.com`) && PathPrefix(`/api`)
@@ -137,7 +137,7 @@ services:
     expose:
       - 3000
     networks:
-      - op-network
+      - dokploy-network
 
   op-worker:
     image: lindesvard/openpanel-worker:latest
@@ -155,7 +155,7 @@ services:
       - "traefik.http.routers.infra-openpanel-uttntd-61-web.middlewares=redirect-to-https@file,worker-basic-auth@file"
       - "traefik.http.routers.infra-openpanel-uttntd-61-websecure.middlewares=worker-basic-auth@file"
     networks:
-      - op-network
+      - dokploy-network
 
 volumes:
   op-db-data:
@@ -166,7 +166,3 @@ volumes:
     driver: local
   op-ch-logs:
     driver: local
-
-networks:
-  op-network:
-    driver: bridge
