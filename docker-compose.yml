@@ -111,14 +111,8 @@ services:
     networks:
       - dokploy-network
     labels:
-      - traefik.docker.network=dokploy-network
-      - traefik.http.routers.infra-openpanel-jbubyl-8-web.rule=Host(`panel.theoffercall.com`) && PathPrefix(`/api`)
-      - traefik.http.routers.infra-openpanel-jbubyl-8-web.entrypoints=web
       - traefik.http.routers.infra-openpanel-jbubyl-8-web.middlewares=infra-openpanel-jbubyl-8-strip@docker,redirect-to-https@file
-      - traefik.http.services.infra-openpanel-jbubyl-8-web.loadbalancer.server.port=3000
-      - traefik.http.routers.infra-openpanel-jbubyl-8-web.service=infra-openpanel-jbubyl-8-web
       - traefik.http.middlewares.infra-openpanel-jbubyl-8-strip.stripPrefix.prefixes=/api
-      - traefik.enable=true
 
 
   op-dashboard:
