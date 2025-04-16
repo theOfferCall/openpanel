@@ -108,6 +108,9 @@ services:
       - .env
     expose:
       - 3000
+    labels:
+      - traefik.http.routers.infra-openpanel-dhpbsl-11-web.middlewares=strip-api-prefix
+      - traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api
     networks:
       - dokploy-network
 
