@@ -152,3 +152,7 @@ volumes:
     driver: local
   op-ch-logs:
     driver: local
+
+networks:
+  dokploy-network:
+    external: true
